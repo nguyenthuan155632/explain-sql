@@ -1,0 +1,78 @@
+<h2>What visualization style do you want?</h2>
+<p class="subtitle">How should the query plan be displayed after you paste it in?</p>
+
+<div class="cards">
+
+  <div class="card" data-choice="tree" onclick="toggleSelect(this)">
+    <div class="card-image" style="padding:16px;background:#0d1117;border-radius:6px;font-family:monospace;font-size:12px;color:#58a6ff">
+      <div style="display:flex;flex-direction:column;gap:6px">
+        <div style="display:flex;align-items:center;gap:8px">
+          <span style="color:#f78166">▶</span>
+          <span style="background:#1f2c3d;padding:3px 10px;border-radius:4px;color:#79c0ff">Hash Join</span>
+          <span style="color:#3fb950;font-size:10px">cost=120..480 rows=1200</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;margin-left:24px">
+          <span style="color:#8b949e">└─</span>
+          <span style="background:#1f2c3d;padding:3px 10px;border-radius:4px;color:#79c0ff">Seq Scan on orders</span>
+          <span style="color:#3fb950;font-size:10px">cost=0..88 rows=1000</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;margin-left:24px">
+          <span style="color:#8b949e">└─</span>
+          <span style="background:#1f2c3d;padding:3px 10px;border-radius:4px;color:#79c0ff">Index Scan on users</span>
+          <span style="color:#3fb950;font-size:10px">cost=0..12 rows=200</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;margin-left:48px">
+          <span style="color:#8b949e">└─</span>
+          <span style="background:#1f2c3d;padding:3px 10px;border-radius:4px;color:#79c0ff">Bitmap Heap Scan</span>
+          <span style="color:#3fb950;font-size:10px">cost=4..8 rows=50</span>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>A — Interactive Tree</h3>
+      <p>Collapsible node tree. Each node shows cost, rows, actual time. Click to expand/collapse branches. Best for navigating deep plans.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="flamegraph" onclick="toggleSelect(this)">
+    <div class="card-image" style="padding:16px;background:#0d1117;border-radius:6px">
+      <div style="display:flex;flex-direction:column;gap:3px">
+        <div style="background:#e05252;height:28px;border-radius:4px;display:flex;align-items:center;padding:0 10px;color:#fff;font-size:11px;font-family:monospace">Hash Join — 480ms (total)</div>
+        <div style="display:flex;gap:3px;margin-left:0">
+          <div style="background:#f0a050;height:24px;border-radius:4px;flex:3;display:flex;align-items:center;padding:0 8px;color:#fff;font-size:10px;font-family:monospace">Seq Scan — 320ms</div>
+          <div style="background:#5090d0;height:24px;border-radius:4px;flex:1;display:flex;align-items:center;padding:0 8px;color:#fff;font-size:10px;font-family:monospace">Index — 60ms</div>
+        </div>
+        <div style="display:flex;gap:3px;margin-left:0">
+          <div style="background:#f0c040;height:20px;border-radius:4px;flex:2;display:flex;align-items:center;padding:0 8px;color:#333;font-size:10px;font-family:monospace">Filter — 180ms</div>
+          <div style="background:#404040;height:20px;border-radius:4px;flex:2"></div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>B — Flame Graph</h3>
+      <p>Width = time proportion. Expensive nodes stand out visually. Great for spotting bottlenecks at a glance. Inspired by profiler flame graphs.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="both" onclick="toggleSelect(this)">
+    <div class="card-image" style="padding:16px;background:#0d1117;border-radius:6px;display:flex;gap:12px">
+      <div style="flex:1;border:1px solid #30363d;border-radius:4px;padding:8px;font-family:monospace;font-size:10px;color:#58a6ff">
+        <div style="color:#8b949e;margin-bottom:4px">TREE VIEW</div>
+        <div>▶ Hash Join</div>
+        <div style="margin-left:12px">└ Seq Scan</div>
+        <div style="margin-left:24px">└ Filter</div>
+      </div>
+      <div style="flex:1;border:1px solid #30363d;border-radius:4px;padding:8px;font-family:monospace;font-size:10px">
+        <div style="color:#8b949e;margin-bottom:4px">FLAME</div>
+        <div style="background:#e05252;height:14px;border-radius:2px;margin-bottom:2px"></div>
+        <div style="background:#f0a050;height:12px;border-radius:2px;width:70%;margin-bottom:2px"></div>
+        <div style="background:#f0c040;height:10px;border-radius:2px;width:45%"></div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>C — Both (tabbed)</h3>
+      <p>Show both views with a tab switch. Tree for structure, flame graph for timing. More complex to build but covers both use cases.</p>
+    </div>
+  </div>
+
+</div>

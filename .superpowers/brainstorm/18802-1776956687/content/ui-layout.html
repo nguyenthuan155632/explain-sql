@@ -1,0 +1,117 @@
+<h2>UI Layout</h2>
+<p class="subtitle">Two-panel dark app. Left: input + controls. Right: D3 tree. Does this layout feel right?</p>
+
+<div class="mockup" style="max-width:900px;margin:0 auto">
+  <div class="mockup-header">explain-sql — Query Plan Visualizer</div>
+  <div class="mockup-body" style="padding:0;display:flex;height:560px;overflow:hidden">
+
+    <!-- Left Panel -->
+    <div style="width:300px;min-width:300px;background:#0d1117;border-right:1px solid #21262d;display:flex;flex-direction:column;padding:0">
+      <!-- Header -->
+      <div style="padding:12px 16px;border-bottom:1px solid #21262d;display:flex;align-items:center;justify-content:space-between">
+        <span style="font-size:12px;font-weight:600;color:#c9d1d9;font-family:monospace">EXPLAIN ANALYZE</span>
+        <span style="font-size:10px;padding:2px 8px;border-radius:10px;background:#1f3a1f;color:#3fb950;font-family:monospace">PostgreSQL</span>
+      </div>
+      <!-- Textarea -->
+      <div style="flex:1;position:relative;padding:12px">
+        <div style="background:#161b22;border:1px solid #30363d;border-radius:6px;height:100%;padding:10px;font-family:monospace;font-size:10px;color:#8b949e;overflow:hidden">
+          <span style="color:#ff7b72">Hash Join</span>  (cost=<span style="color:#e3b341">120.00..480.50</span> rows=<span style="color:#79c0ff">1200</span> width=<span style="color:#79c0ff">64</span>)<br/>
+          &nbsp;&nbsp;(actual time=<span style="color:#3fb950">0.143..312.8</span> rows=<span style="color:#3fb950">1185</span> loops=<span style="color:#3fb950">1</span>)<br/>
+          &nbsp;&nbsp;Hash Cond: <span style="color:#ffa657">(o.user_id = u.id)</span><br/>
+          &nbsp;&nbsp;Buffers: shared hit=<span style="color:#a5d6ff">8840</span> read=<span style="color:#ff7b72">12</span><br/>
+          &nbsp;&nbsp;-&gt; Seq Scan on orders o...<br/>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(cost=<span style="color:#e3b341">0.00..88.00</span>...<br/>
+          <br/>
+          <span style="color:#484f58">paste EXPLAIN ANALYZE output here...</span>
+        </div>
+      </div>
+      <!-- Controls -->
+      <div style="padding:12px 16px;border-top:1px solid #21262d;display:flex;flex-direction:column;gap:8px">
+        <button style="background:#238636;border:none;color:#fff;padding:8px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;font-family:monospace">▶ Visualize</button>
+        <div style="display:flex;gap:6px">
+          <button style="flex:1;background:#21262d;border:1px solid #30363d;color:#c9d1d9;padding:6px;border-radius:6px;font-size:11px;cursor:pointer">Export PNG</button>
+          <button style="flex:1;background:#21262d;border:1px solid #30363d;color:#c9d1d9;padding:6px;border-radius:6px;font-size:11px;cursor:pointer">Export SVG</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Panel -->
+    <div style="flex:1;background:#010409;position:relative;overflow:hidden">
+      <!-- Toolbar -->
+      <div style="position:absolute;top:12px;right:12px;display:flex;gap:6px;z-index:10">
+        <button style="background:#21262d;border:1px solid #30363d;color:#8b949e;padding:4px 10px;border-radius:4px;font-size:11px;cursor:pointer">+ Zoom In</button>
+        <button style="background:#21262d;border:1px solid #30363d;color:#8b949e;padding:4px 10px;border-radius:4px;font-size:11px;cursor:pointer">− Zoom Out</button>
+        <button style="background:#21262d;border:1px solid #30363d;color:#8b949e;padding:4px 10px;border-radius:4px;font-size:11px;cursor:pointer">⊡ Fit</button>
+        <button style="background:#21262d;border:1px solid #30363d;color:#8b949e;padding:4px 10px;border-radius:4px;font-size:11px;cursor:pointer">⊞ Expand All</button>
+      </div>
+
+      <!-- D3 Tree mockup -->
+      <div style="padding:48px 24px;display:flex;flex-direction:column;align-items:center;gap:0">
+        <!-- Root node -->
+        <div style="border:1px solid #f78166;border-radius:6px;padding:10px 14px;background:#1a0f0e;min-width:260px;font-family:monospace;font-size:10px">
+          <div style="color:#f78166;font-weight:700;font-size:11px;margin-bottom:6px">Hash Join</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:2px 12px;color:#484f58">
+            <span>cost <span style="color:#e3b341">120→480</span></span>
+            <span>rows <span style="color:#79c0ff">1200</span></span>
+            <span>actual <span style="color:#3fb950">0.1→312ms</span></span>
+            <span>actual rows <span style="color:#3fb950">1185</span></span>
+            <span>loops <span style="color:#79c0ff">1</span></span>
+            <span>width <span style="color:#79c0ff">64</span></span>
+            <span>sh.hit <span style="color:#a5d6ff">8840</span></span>
+            <span>sh.read <span style="color:#ff7b72">12</span></span>
+          </div>
+          <div style="margin-top:5px;color:#484f58;font-size:9px">Hash Cond: <span style="color:#ffa657">o.user_id = u.id</span></div>
+        </div>
+
+        <!-- Connector lines -->
+        <div style="display:flex;justify-content:space-around;width:440px;height:24px;position:relative">
+          <div style="position:absolute;left:50%;top:0;width:1px;height:100%;background:#30363d"></div>
+          <div style="position:absolute;left:25%;top:50%;width:1px;height:50%;background:#30363d"></div>
+          <div style="position:absolute;right:25%;top:50%;width:1px;height:50%;background:#30363d"></div>
+          <div style="position:absolute;left:25%;top:50%;right:25%;height:1px;background:#30363d"></div>
+        </div>
+
+        <!-- Child nodes -->
+        <div style="display:flex;gap:16px;align-items:flex-start">
+          <div style="border:1px solid #388bfd;border-radius:6px;padding:8px 12px;background:#0c1626;min-width:200px;font-family:monospace;font-size:10px">
+            <div style="color:#388bfd;font-weight:700;font-size:11px;margin-bottom:5px">Seq Scan</div>
+            <div style="color:#8b949e;margin-bottom:3px;font-size:9px">on <span style="color:#c9d1d9">orders o</span></div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:2px 12px;color:#484f58">
+              <span>cost <span style="color:#e3b341">0→88</span></span>
+              <span>rows <span style="color:#79c0ff">1000</span></span>
+              <span>actual <span style="color:#3fb950">0.02→1.8ms</span></span>
+              <span>actual rows <span style="color:#3fb950">1000</span></span>
+              <span>sh.hit <span style="color:#a5d6ff">440</span></span>
+              <span>removed <span style="color:#ff7b72">240</span></span>
+            </div>
+            <div style="margin-top:4px;color:#484f58;font-size:9px">Filter: <span style="color:#ffa657">status = 'active'</span></div>
+          </div>
+
+          <div style="border:1px solid #3fb950;border-radius:6px;padding:8px 12px;background:#0c1a0f;min-width:200px;font-family:monospace;font-size:10px">
+            <div style="color:#3fb950;font-weight:700;font-size:11px;margin-bottom:5px">Index Scan</div>
+            <div style="color:#8b949e;margin-bottom:3px;font-size:9px">on <span style="color:#c9d1d9">users u</span> via <span style="color:#d2a8ff">idx_users_id</span></div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:2px 12px;color:#484f58">
+              <span>cost <span style="color:#e3b341">0→12</span></span>
+              <span>rows <span style="color:#79c0ff">200</span></span>
+              <span>actual <span style="color:#3fb950">0.01→54ms</span></span>
+              <span>actual rows <span style="color:#3fb950">198</span></span>
+              <span>sh.hit <span style="color:#a5d6ff">396</span></span>
+              <span>sh.read <span style="color:#79c0ff">0</span></span>
+            </div>
+            <div style="margin-top:4px;color:#484f58;font-size:9px">Cond: <span style="color:#ffa657">u.id = o.user_id</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Legend -->
+      <div style="position:absolute;bottom:12px;left:12px;display:flex;gap:12px;font-family:monospace;font-size:9px">
+        <span style="color:#f78166">■ Join</span>
+        <span style="color:#388bfd">■ Scan</span>
+        <span style="color:#3fb950">■ Index</span>
+        <span style="color:#d2a8ff">■ Sort/Agg</span>
+        <span style="color:#e3b341">■ Hash</span>
+      </div>
+    </div>
+
+  </div>
+</div>

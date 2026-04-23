@@ -1,0 +1,99 @@
+<h2>Which layout handles dense data better for you?</h2>
+<p class="subtitle">Both show the same fields — cost, actual time, rows, loops, buffers, I/O. Pick the layout that's easier to work with.</p>
+
+<div class="cards">
+
+  <div class="card" data-choice="tree" onclick="toggleSelect(this)">
+    <div class="card-image" style="padding:12px;background:#0d1117;border-radius:6px;font-family:monospace;font-size:11px;overflow:hidden">
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <!-- Node 1 -->
+        <div style="border:1px solid #f78166;border-radius:4px;padding:8px">
+          <div style="color:#f78166;font-weight:bold;margin-bottom:4px">▶ Hash Join</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:2px 16px;color:#8b949e;font-size:10px">
+            <span>cost: <span style="color:#e3b341">120.00..480.50</span></span>
+            <span>rows: <span style="color:#e3b341">1200</span></span>
+            <span>actual time: <span style="color:#3fb950">0.143..312.8</span></span>
+            <span>actual rows: <span style="color:#3fb950">1185</span></span>
+            <span>loops: <span style="color:#79c0ff">1</span></span>
+            <span>width: <span style="color:#79c0ff">64</span></span>
+            <span>shared hit: <span style="color:#a5d6ff">8840</span></span>
+            <span>shared read: <span style="color:#ff7b72">12</span></span>
+            <span>Hash Batches: <span style="color:#d2a8ff">1</span></span>
+            <span>Mem Usage: <span style="color:#d2a8ff">2048kB</span></span>
+          </div>
+        </div>
+        <!-- Node 2 indented -->
+        <div style="border:1px solid #30363d;border-radius:4px;padding:8px;margin-left:20px">
+          <div style="color:#79c0ff;font-weight:bold;margin-bottom:4px">└─ Seq Scan on orders</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:2px 16px;color:#8b949e;font-size:10px">
+            <span>cost: <span style="color:#e3b341">0.00..88.00</span></span>
+            <span>rows: <span style="color:#e3b341">1000</span></span>
+            <span>actual time: <span style="color:#3fb950">0.021..1.84</span></span>
+            <span>actual rows: <span style="color:#3fb950">1000</span></span>
+            <span>loops: <span style="color:#79c0ff">1</span></span>
+            <span>Filter: <span style="color:#ffa657">status='active'</span></span>
+            <span>rows removed: <span style="color:#ff7b72">240</span></span>
+            <span>shared hit: <span style="color:#a5d6ff">440</span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>A — Expandable Tree</h3>
+      <p>Each node is a card showing all fields in a grid. Nested to show parent→child relationships. Click to collapse/expand branches. Best for reading all data per node.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="flame" onclick="toggleSelect(this)">
+    <div class="card-image" style="padding:12px;background:#0d1117;border-radius:6px;font-family:monospace;font-size:11px">
+      <div style="display:flex;flex-direction:column;gap:2px">
+        <!-- Flame rows -->
+        <div style="position:relative">
+          <div style="background:#b22222;height:36px;border-radius:4px;display:flex;align-items:center;padding:0 10px;color:#fff;font-size:10px;justify-content:space-between">
+            <span>Hash Join</span>
+            <span style="opacity:0.8">312.8ms | rows: 1185/1200 | hit:8840 read:12</span>
+          </div>
+        </div>
+        <div style="display:flex;gap:2px">
+          <div style="background:#c0522a;height:32px;border-radius:4px;flex:7;display:flex;align-items:center;padding:0 8px;color:#fff;font-size:10px;justify-content:space-between">
+            <span>Seq Scan</span><span style="opacity:0.8">238ms | rows: 1000 | rm:240</span>
+          </div>
+          <div style="background:#1a4a8a;height:32px;border-radius:4px;flex:3;display:flex;align-items:center;padding:0 8px;color:#fff;font-size:10px">
+            <span>Hash</span>
+          </div>
+        </div>
+        <div style="display:flex;gap:2px">
+          <div style="background:#a06020;height:28px;border-radius:4px;flex:5;display:flex;align-items:center;padding:0 8px;color:#fff;font-size:10px">
+            <span>Index Scan · 54ms</span>
+          </div>
+          <div style="background:#222;height:28px;border-radius:4px;flex:5"></div>
+        </div>
+      </div>
+      <div style="color:#8b949e;font-size:9px;margin-top:4px">Hover a bar → full stats tooltip</div>
+    </div>
+    <div class="card-body">
+      <h3>B — Flame Graph</h3>
+      <p>Width = proportional time. Hovering shows all fields. Immediate visual of which node dominates. Less readable for many small fields at once.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="both" onclick="toggleSelect(this)">
+    <div class="card-image" style="padding:12px;background:#0d1117;border-radius:6px;font-size:10px;font-family:monospace">
+      <div style="display:flex;gap:2px;margin-bottom:8px">
+        <div style="background:#21262d;padding:4px 12px;border-radius:4px;color:#58a6ff;border-bottom:2px solid #58a6ff">Tree</div>
+        <div style="background:#161b22;padding:4px 12px;border-radius:4px;color:#8b949e">Flame</div>
+        <div style="background:#161b22;padding:4px 12px;border-radius:4px;color:#8b949e">Stats Table</div>
+      </div>
+      <div style="border:1px solid #30363d;border-radius:4px;padding:8px;color:#8b949e">
+        ▶ Hash Join &nbsp;<span style="color:#3fb950">312ms</span>&nbsp; rows <span style="color:#e3b341">1185</span>/<span style="color:#8b949e">1200</span><br/>
+        &nbsp;&nbsp;└ Seq Scan &nbsp;<span style="color:#3fb950">238ms</span>&nbsp; hit:<span style="color:#a5d6ff">440</span><br/>
+        &nbsp;&nbsp;└ Index Scan &nbsp;<span style="color:#3fb950">54ms</span>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>C — Tree + Flame + Stats Table (tabbed)</h3>
+      <p>Three tabs: tree card view, flame graph, and a sortable flat table of all nodes by time/cost. Most complete — more to build.</p>
+    </div>
+  </div>
+
+</div>
