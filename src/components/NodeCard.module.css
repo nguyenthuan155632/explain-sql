@@ -1,0 +1,117 @@
+.card {
+  width: 290px;
+  border-radius: 6px;
+  border-width: 1px;
+  border-style: solid;
+  font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
+  font-size: 10px;
+  cursor: pointer;
+  user-select: none;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 7px 10px 5px;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  border-bottom-color: inherit;
+}
+
+.nodeType {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.relation {
+  font-size: 9px;
+  opacity: 0.6;
+  margin-top: 2px;
+}
+
+.chevron {
+  font-size: 10px;
+  opacity: 0.5;
+  flex-shrink: 0;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px 10px;
+  padding: 7px 10px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.label {
+  font-size: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #484f58;
+}
+
+.value {
+  color: #c9d1d9;
+}
+
+.value.warn {
+  color: #ff7b72;
+}
+
+.value.muted {
+  color: #8b949e;
+}
+
+.value.accent {
+  color: #3fb950;
+}
+
+.value.blue {
+  color: #79c0ff;
+}
+
+.value.yellow {
+  color: #e3b341;
+}
+
+.conditions {
+  padding: 0 10px 7px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.cond {
+  font-size: 9px;
+  color: #484f58;
+  word-break: break-all;
+}
+
+.cond span {
+  color: #ffa657;
+}
+
+.rawFields {
+  padding: 0 10px 7px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.rawField {
+  font-size: 9px;
+  color: #484f58;
+}
+
+.rawField span {
+  color: #8b949e;
+}
