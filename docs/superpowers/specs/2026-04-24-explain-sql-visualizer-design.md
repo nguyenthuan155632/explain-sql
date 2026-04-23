@@ -137,7 +137,8 @@ Inspect the raw input string:
 
 ### MySQL parser (`mysql.ts`)
 
-- Input: `EXPLAIN FORMAT=JSON` output (JSON object with `query_block` root)
+- Input: `EXPLAIN FORMAT=JSON` output (MySQL 8.0+, JSON object with `query_block` root)
+- Note: `EXPLAIN FORMAT=JSON` provides **planner estimates only** — no actual rows or actual time. Fields like `actualRows`, `actualTotalTime` will be `undefined` for MySQL plans. `EXPLAIN ANALYZE` (MySQL 8.0.18+) does provide actual timing but outputs text format, which is out of scope for v1.
 - Walk nested objects (`nested_loop`, `ordering_operation`, `grouping_operation`, etc.) recursively
 - Map MySQL-specific keys (`cost_info`, `rows_examined_per_scan`, `filtered`, etc.) to the normalized interface where equivalents exist
 - Store MySQL-specific fields with no PostgreSQL equivalent in `raw`
@@ -229,6 +230,8 @@ src/
 - **PNG**: `toPng(svgContainerRef.current)` → triggers browser download
 - **SVG**: `toSvg(svgContainerRef.current)` → triggers browser download
 - File named `plan-{timestamp}.png` / `plan-{timestamp}.svg`
+
+**Known risk — foreignObject export:** `html-to-image` does not reliably capture `<foreignObject>` content (HTML embedded in SVG) across all browsers. Mitigation: at export time, re-render the tree as plain SVG `<text>` and `<rect>` elements into an offscreen SVG, capture that, then discard it. The interactive view uses foreignObject for rich layout; the export uses a purpose-built SVG renderer.
 
 ---
 
