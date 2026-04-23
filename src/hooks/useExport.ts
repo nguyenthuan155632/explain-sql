@@ -70,7 +70,6 @@ function buildOffscreenSvg(treeResult: D3TreeResult): SVGSVGElement {
 
   treeResult.links.forEach((link) => {
     const path = document.createElementNS('http://www.w3.org/2000/svg', 'path')
-    const mx = (link.sourceX + link.targetX) / 2
     const my = (link.sourceY + link.targetY) / 2
     path.setAttribute(
       'd',
@@ -103,7 +102,7 @@ export function useExport(treeResult: D3TreeResult) {
     const svg = buildOffscreenSvg(treeResult)
     document.body.appendChild(svg)
     try {
-      const dataUrl = await toPng(svg)
+      const dataUrl = await toPng(svg as unknown as HTMLElement)
       triggerDownload(dataUrl, `plan-${timestamp()}.png`)
     } finally {
       document.body.removeChild(svg)
@@ -114,7 +113,7 @@ export function useExport(treeResult: D3TreeResult) {
     const svg = buildOffscreenSvg(treeResult)
     document.body.appendChild(svg)
     try {
-      const dataUrl = await toSvg(svg)
+      const dataUrl = await toSvg(svg as unknown as HTMLElement)
       triggerDownload(dataUrl, `plan-${timestamp()}.svg`)
     } finally {
       document.body.removeChild(svg)

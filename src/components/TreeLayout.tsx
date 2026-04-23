@@ -30,7 +30,7 @@ export function TreeLayout({ tree, onToggle }: Props) {
           height={NODE_HEIGHT}
           style={{ overflow: 'visible' }}
         >
-          <div xmlns="http://www.w3.org/1999/xhtml" style={{ width: NODE_WIDTH }}>
+          <div style={{ width: NODE_WIDTH }}>
             <NodeCard
               node={node.data}
               collapsed={node.collapsed}
