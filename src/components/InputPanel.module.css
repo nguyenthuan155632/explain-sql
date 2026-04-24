@@ -1,0 +1,136 @@
+.panel {
+  width: 300px;
+  min-width: 300px;
+  background: #0d1117;
+  border-right: 1px solid #21262d;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  padding: 12px 16px;
+  border-bottom: 1px solid #21262d;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.title {
+  font-size: 12px;
+  font-weight: 600;
+  color: #c9d1d9;
+  font-family: monospace;
+}
+
+.badge {
+  font-size: 10px;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-family: monospace;
+}
+
+.badgePg {
+  background: #1f3a1f;
+  color: #3fb950;
+}
+
+.badgeMysql {
+  background: #2a1f0a;
+  color: #e3b341;
+}
+
+.badgeUnknown {
+  background: #21262d;
+  color: #8b949e;
+}
+
+.textareaWrap {
+  flex: 1;
+  padding: 12px;
+  min-height: 0;
+}
+
+.textarea {
+  width: 100%;
+  height: 100%;
+  background: #161b22;
+  border: 1px solid #30363d;
+  border-radius: 6px;
+  padding: 10px;
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  font-size: 10px;
+  color: #8b949e;
+  resize: none;
+  box-sizing: border-box;
+  outline: none;
+}
+
+.textarea:focus {
+  border-color: #388bfd;
+}
+
+.textarea::placeholder {
+  color: #484f58;
+}
+
+.error {
+  margin: 0 12px 8px;
+  padding: 8px 10px;
+  background: #2d1010;
+  border: 1px solid #f78166;
+  border-radius: 4px;
+  font-family: monospace;
+  font-size: 10px;
+  color: #f78166;
+}
+
+.footer {
+  padding: 12px 16px;
+  border-top: 1px solid #21262d;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.btnPrimary {
+  background: #238636;
+  border: none;
+  color: #fff;
+  padding: 8px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: monospace;
+  width: 100%;
+}
+
+.btnPrimary:hover {
+  background: #2ea043;
+}
+
+.btnRow {
+  display: flex;
+  gap: 6px;
+}
+
+.btnSecondary {
+  flex: 1;
+  background: #21262d;
+  border: 1px solid #30363d;
+  color: #c9d1d9;
+  padding: 6px;
+  border-radius: 6px;
+  font-size: 11px;
+  cursor: pointer;
+  font-family: monospace;
+}
+
+.btnSecondary:hover {
+  background: #30363d;
+}
+
+.btnSecondary:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
